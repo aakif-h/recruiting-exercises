@@ -8,8 +8,8 @@ class InventoryAllocator:
     
     
     # worst case time complexity: O(N*M) 
-    # worst case space complexity: O(M)
-    # where N = number of warehouses and M = number of items
+    # worst case space complexity: O(N*M)
+    # where N = number of warehouses and M = number of items per warehouse
     #
     # input: warehouses -> a list of dicts
     # output: catalog -> a dict with info of all items stocked across warehouses (basically, one big warehouse)
@@ -38,7 +38,7 @@ class InventoryAllocator:
     # this function finds the optimal shipments for each order requested by the user
     # time complexity: O(M*NlogN)
     # space complexity: O(N*M)
-    # where N = number of warehouses and M = number of items
+    # where N = number of warehouses and M = number of items per warehouse
     #
     # input: None
     # output: shipments -> a list of OrderedDicts with each representing the most optimal shipment for a given order
