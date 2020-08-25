@@ -1,6 +1,5 @@
 from collections import OrderedDict
 
-
 class InventoryAllocator:
     def __init__(self, warehouses, orders):
         self.warehouses = warehouses
@@ -8,9 +7,9 @@ class InventoryAllocator:
         self.orders = orders
     
     
-    # worst case time complexity: O(n*m) 
-    # worst case space complexity: O(m)
-    # where n = number of warehouses & m = number of items
+    # worst case time complexity: O(N*M) 
+    # worst case space complexity: O(M)
+    # where N = number of warehouses and M = number of items
     def process_catalog(self, warehouses):
         catalog = {}
         for warehouse in warehouses:
@@ -29,8 +28,13 @@ class InventoryAllocator:
     def get_shipments(self):
         shipments = []
         n = len(self.warehouses)
+        # in the case that there are no warehouses, we cannot get any shipments, so just
+        # return an empty list, as defined by the coding challenge criteria
+        if not n:
+            return []
+
         for item in self.orders.keys():
-            if self.catalog[item] < self.orders[item]:
+            if self.catalog[item] < self.orders[item] or self.orders[item] == 0:
                 continue
             self.warehouses.sort(key = lambda w: w["inventory"][item], reverse=True)
             retrieval_amount = self.orders[item]
@@ -46,17 +50,3 @@ class InventoryAllocator:
                 i += 1
             shipments.append(OrderedDict(sorted(shipment.items())))
         return shipments
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    w = [{"name":"owd", "inventory":{"apple":5}},{"name":"dm", "inventory":{"apple":5}}]
-    o = {"apple":10}
-
-    allocator = InventoryAllocator(w, o)
-
-    print("shipments: {}".format(allocator.get_shipments()))
