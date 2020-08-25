@@ -3,8 +3,9 @@ This repository contains my solution to Deliverr's coding challenge, Inventory A
 
 
 ## Requirements
-This code was written in Python3. Note that if you try running the code in Python2, you may 
-see some failed unit tests or some unhandled behavior from custom tests.
+This code was written in Python3. Note that if you try running the code in Python2, you will
+not be able to run the logic at all (likely because Python2 uses ```raw_input()```, while Python3 
+uses ```input()```).
 
 
 ## How to Run
