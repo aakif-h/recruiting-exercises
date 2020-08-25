@@ -90,7 +90,17 @@ class TestInventoryAllocator(unittest.TestCase):
         self.assertEqual(allocator.get_shipments(), expected)
 
 
-    # TEST 9: test a large number of warehouses with overlapping orders
+    # TEST 9: a test of an order not present in the warehouses
+    def test_absent_order(self):
+        warehouses = [{"name":"owd", "inventory":{"apple":15}}]
+        orders = {"orange":1}
+        expected = [] #  all keys inside a hashmap are unique, so there is only one entry in orders: {"apple":35}
+
+        allocator = InventoryAllocator(warehouses, orders)
+        self.assertEqual(allocator.get_shipments(), expected)
+
+    
+    # TEST 10: test a large number of warehouses with overlapping orders
     def test_large_scenario(self):
         warehouses = [{"name":"a", "inventory":{"1":115, "2": 55, "3": 16, "4": 71, "5": 28}},
                       {"name":"b", "inventory":{"1": 82, "2": 34, "3": 74, "4":158, "5": 31}},
@@ -112,6 +122,8 @@ class TestInventoryAllocator(unittest.TestCase):
         self.assertEqual(allocator.get_shipments(), expected)
 
 
+# gives the user the ability to run either some unit tests or custom tests
+# note that the custom tests don't take in an expected value
 if __name__ == '__main__':
     while True:
         response = input("Would you like to run tests? Type 'Y' for \"Yes\" or type 'N' for \"No\": ")
